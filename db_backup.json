@@ -1,0 +1,132 @@
+{
+  "campaigns": [
+    {
+      "id": "0",
+      "title": "Testowa kampania",
+      "user": {
+        "id": "0",
+        "name": "testowy użytkownik"
+      },
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Id donec ultrices tincidunt arcu. Metus aliquam eleifend mi in. Felis eget nunc lobortis mattis aliquam faucibus purus. Augue ut lectus arcu bibendum at varius vel pharetra. Congue mauris rhoncus aenean vel elit scelerisque. Massa placerat duis ultricies lacus sed turpis tincidunt id. Magna sit amet purus gravida quis. Integer eget aliquet nibh praesent tristique. Massa massa ultricies mi quis hendrerit dolor magna eget est. Iaculis eu non diam phasellus vestibulum lorem sed risus. Amet est placerat in egestas erat imperdiet sed euismod nisi. Scelerisque eleifend donec pretium vulputate. Nunc id cursus metus aliquam. Volutpat consequat mauris nunc congue nisi vitae suscipit tellus. Quam adipiscing vitae proin sagittis nisl rhoncus. Dignissim convallis aenean et tortor at risus.\nQuis vel eros donec ac odio tempor. Eros donec ac odio tempor orci dapibus ultrices in. Sit amet porttitor eget dolor morbi non arcu risus quis. Arcu non odio euismod lacinia at. Aliquet nec ullamcorper sit amet risus. Risus nec feugiat in fermentum posuere urna nec tincidunt. Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Sit amet venenatis urna cursus eget nunc scelerisque viverra mauris. Risus in hendrerit gravida rutrum. Donec et odio pellentesque diam volutpat commodo sed. Risus quis varius quam quisque. Id donec ultrices tincidunt arcu. Tortor id aliquet lectus proin nibh nisl condimentum id. Eu augue ut lectus arcu bibendum at.\nTincidunt praesent semper feugiat nibh. Vel eros donec ac odio tempor orci dapibus. Tempus quam pellentesque nec nam. Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Sed viverra tellus in hac habitasse platea. Diam donec adipiscing tristique risus nec feugiat in fermentum posuere. Sed risus pretium quam vulputate dignissim suspendisse in est ante. Turpis in eu mi bibendum neque. Rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui.",
+      "launchDate": 1573079764290,
+      "days": 30,
+      "goal": 1200,
+      "raised": 321.5,
+      "img": "https://a.kickstarter.com/assets/projects/learn/refresh/feature-1-6e68a182e1340ce87d9b3c9f9a25da52935d14be496a4e88085025ae54bb870d.jpg",
+      "video": "https://www.youtube.com/watch?v=N3fiF9bHvxw",
+      "approved": true,
+      "donators": [
+        {
+          "user": {
+            "id": "0",
+            "name": "testowy użytkownik"
+          },
+          "amount": 50.5,
+          "date": "1573079764290"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "title": "One River, a Thousand Voices",
+      "user": {
+        "id": "1",
+        "name": "SVC Letterpress"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573079764290,
+      "days": 30,
+      "goal": 2000,
+      "raised": 1000,
+      "img": "https://ksr-ugc.imgix.net/assets/026/698/008/0fea1edd89c67085b0206d2fe51829ff_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570058152&auto=format&gif-q=50&q=92&s=ea9acc1c2e28489164dc9adcb2a64e04",
+      "video": "https://www.youtube.com/watch?v=vXYNBn4B-gE",
+      "approved": true,
+      "donators": []
+    },
+    {
+      "id": "2",
+      "title": "DRACULA: The Evidence",
+      "user": {
+        "id": "2",
+        "name": "Beehive Books"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573130889078,
+      "days": 20,
+      "goal": 10000,
+      "raised": 9000,
+      "img": "https://ksr-ugc.imgix.net/assets/026/776/660/36e2d12f03fadb6d6592be92eeea1ac5_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570645190&auto=format&gif-q=50&q=92&s=2a0727a8bae4487e8cc7f665ca8fe251",
+      "video": "https://www.youtube.com/watch?v=FqnCgKCkUv4",
+      "approved": true,
+      "donators": []
+    },
+    {
+      "id": "3",
+      "title": "DRACULA: The Evidence 1",
+      "user": {
+        "id": "2",
+        "name": "Beehive Books"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573130889078,
+      "days": 30,
+      "goal": 10000,
+      "raised": 0,
+      "img": "https://ksr-ugc.imgix.net/assets/026/776/660/36e2d12f03fadb6d6592be92eeea1ac5_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570645190&auto=format&gif-q=50&q=92&s=2a0727a8bae4487e8cc7f665ca8fe251",
+      "video": "https://www.youtube.com/watch?v=FqnCgKCkUv4",
+      "approved": true,
+      "donators": []
+    },
+    {
+      "id": "4",
+      "title": "DRACULA: The Evidence 2",
+      "user": {
+        "id": "2",
+        "name": "Beehive Books"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573130889078,
+      "days": 30,
+      "goal": 10000,
+      "raised": 1900,
+      "img": "https://ksr-ugc.imgix.net/assets/026/776/660/36e2d12f03fadb6d6592be92eeea1ac5_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570645190&auto=format&gif-q=50&q=92&s=2a0727a8bae4487e8cc7f665ca8fe251",
+      "video": "https://www.youtube.com/watch?v=FqnCgKCkUv4",
+      "approved": null,
+      "donators": []
+    },
+    {
+      "id": "5",
+      "title": "DRACULA: The Evidence 3",
+      "user": {
+        "id": "2",
+        "name": "Beehive Books"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573130889078,
+      "days": 30,
+      "goal": 10000,
+      "raised": 400,
+      "img": "https://ksr-ugc.imgix.net/assets/026/776/660/36e2d12f03fadb6d6592be92eeea1ac5_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570645190&auto=format&gif-q=50&q=92&s=2a0727a8bae4487e8cc7f665ca8fe251",
+      "video": "https://www.youtube.com/watch?v=FqnCgKCkUv4",
+      "approved": null,
+      "donators": []
+    },
+    {
+      "id": "6",
+      "title": "DRACULA: The Evidence 4",
+      "user": {
+        "id": "2",
+        "name": "Beehive Books"
+      },
+      "description": "With this project, Claudia Castro Luna hopes to contribute to the literary legacy of the state by writing and producing a tangible and lasting object that will live in libraries across Washington to be enjoyed by everyone. ",
+      "launchDate": 1573209141760,
+      "days": 30,
+      "goal": 10000,
+      "raised": 0,
+      "img": "https://ksr-ugc.imgix.net/assets/026/776/660/36e2d12f03fadb6d6592be92eeea1ac5_original.jpg?ixlib=rb-2.1.0&w=680&fit=max&v=1570645190&auto=format&gif-q=50&q=92&s=2a0727a8bae4487e8cc7f665ca8fe251",
+      "video": "https://www.youtube.com/watch?v=FqnCgKCkUv4",
+      "approved": false,
+      "donators": []
+    }
+  ]
+}
