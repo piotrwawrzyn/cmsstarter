@@ -7,9 +7,13 @@ export class Header extends Component {
     return (
       <Menu.Item position="right">
         <Button.Group size="large">
-          <Button color="black">Login</Button>
+          <Link to="/login">
+            <Button color="black">Login</Button>
+          </Link>
           <Button.Or />
-          <Button color="black">Sign up</Button>
+          <Link to='/signup'>
+            <Button color="black">Sign up</Button>
+          </Link>
         </Button.Group>
       </Menu.Item>
     );

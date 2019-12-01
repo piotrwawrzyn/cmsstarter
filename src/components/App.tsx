@@ -4,6 +4,8 @@ import { Layout } from './layout/Layout';
 import { Home } from './Home';
 import { Campaign } from './Campaign';
 import { New } from './New';
+import { Login } from './Login';
+import { Signup } from './Signup';
 
 export const App = (props: {}) => {
   return (
@@ -16,6 +18,12 @@ export const App = (props: {}) => {
           </Route>
           <Route exact path="/new">
             <New />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
           </Route>
           <Route>
             <h1>404: Page not found</h1>
