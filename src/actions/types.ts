@@ -3,15 +3,17 @@ import {
   ChangeCampaignsPageAction,
   FilterCampaignsAction,
   SortCampaignsAction
-} from './campaignList';
-import { FetchCampaignAction } from './campaignPage';
+} from "./campaignList";
+import { FetchCampaignAction } from "./campaignPage";
+import { FetchUserPayloadAction } from "./user";
 
 export enum ActionTypes {
   fetchCampaigns,
   changeCampaignsPage,
   filterCampaigns,
   sortCampaigns,
-  fetchCampaign
+  fetchCampaign,
+  fetchUserPayload
 }
 
 export type Action =
@@ -19,4 +21,5 @@ export type Action =
   | ChangeCampaignsPageAction
   | FilterCampaignsAction
   | SortCampaignsAction
-  | FetchCampaignAction;
+  | FetchCampaignAction
+  | FetchUserPayloadAction;
