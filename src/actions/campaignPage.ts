@@ -1,9 +1,9 @@
-import { ActionTypes } from './types';
-import { Dispatch } from 'redux';
-import axios from 'axios';
-import { config } from '../config';
-import { Campaign } from '../interfaces/Campaign';
-import { extendCampaignData } from '../utils/extendCampaignData';
+import { ActionTypes } from "./types";
+import { Dispatch } from "redux";
+import axios from "axios";
+import { config } from "../config";
+import { Campaign } from "../interfaces/Campaign";
+import { extendCampaignData } from "../utils/extendCampaignData";
 
 export interface FetchCampaignAction {
   type: ActionTypes.fetchCampaign;
@@ -21,7 +21,8 @@ export const fetchCampaign = (id: number) => {
 
       campaign = extendCampaignData(response.data);
     } catch (err) {
-      console.log('Campaign not found');
+      console.log(err);
+      console.log("Campaign not found");
     }
 
     return dispatch<FetchCampaignAction>({

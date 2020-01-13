@@ -1,12 +1,16 @@
-import React from 'react';
-import { Header } from './Header';
-import { Container } from 'semantic-ui-react';
+import React from "react";
+import { connect } from "react-redux";
+import Header from "./Header";
+import { Container } from "semantic-ui-react";
+import { fetchUserPayload, FetchUserPayloadAction } from "../../actions/user";
 
 interface LayoutProps {
   children: JSX.Element;
+  fetchUserPayload: () => Promise<FetchUserPayloadAction>;
 }
 
-export const Layout = (props: LayoutProps) => {
+const Layout = (props: LayoutProps) => {
+  props.fetchUserPayload();
   return (
     <Container>
       <Header />
@@ -14,3 +18,5 @@ export const Layout = (props: LayoutProps) => {
     </Container>
   );
 };
+
+export default connect(null, { fetchUserPayload })(Layout);

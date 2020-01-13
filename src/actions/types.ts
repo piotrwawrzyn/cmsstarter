@@ -13,7 +13,14 @@ export enum ActionTypes {
   filterCampaigns,
   sortCampaigns,
   fetchCampaign,
-  fetchUserPayload
+  UserPayload,
+  login,
+  signup,
+  logout
+}
+
+export interface LogoutAction {
+  type: ActionTypes.logout;
 }
 
 export type Action =
@@ -22,4 +29,5 @@ export type Action =
   | FilterCampaignsAction
   | SortCampaignsAction
   | FetchCampaignAction
-  | FetchUserPayloadAction;
+  | FetchUserPayloadAction
+  | LogoutAction;

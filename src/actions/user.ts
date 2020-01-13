@@ -5,11 +5,13 @@ import { ActionTypes } from "./types";
 import { UserCurrent } from "../interfaces";
 
 export interface FetchUserPayloadAction {
-  type: ActionTypes.fetchUserPayload;
+  type: ActionTypes.UserPayload;
   payload: UserCurrent | null;
 }
 
-export const fetchUserPayload = () => async (dispatch: Dispatch) => {
+export const fetchUserPayload = () => async (
+  dispatch: Dispatch<FetchUserPayloadAction>
+) => {
   let user = null;
   try {
     const response = await axios.get<UserCurrent>(
@@ -22,7 +24,7 @@ export const fetchUserPayload = () => async (dispatch: Dispatch) => {
     console.log(e);
   }
   return dispatch<FetchUserPayloadAction>({
-    type: ActionTypes.fetchUserPayload,
+    type: ActionTypes.UserPayload,
     payload: user
   });
 };
