@@ -24,10 +24,13 @@ const LoginForm = (props: LoginProps) => {
 
     if (continueSubmit) {
       props.login(props.data, function cb(e: any) {
-        toast.error(e, { containerId: "modal" });
+        if (e) {
+          toast.error(e, { containerId: "modal" });
+        } else {
+          console.log();
+          props.closeModal();
+        }
       });
-    } else {
-      props.closeModal();
     }
   };
 

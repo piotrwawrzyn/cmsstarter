@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchCampaign } from '../actions/campaignPage';
-import { StoreState } from '../reducers';
-import { Campaign as ICampaign } from '../interfaces';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchCampaign } from "../actions/campaignPage";
+import { StoreState } from "../reducers";
+import { Campaign as ICampaign } from "../interfaces";
 import {
   Grid,
   Header,
@@ -11,11 +11,11 @@ import {
   Input,
   Button,
   Icon
-} from 'semantic-ui-react';
-import { YoutubeIframe } from './YoutubeIframe';
-import { calculateTimeRemaining } from '../utils/calculateTimeRemaining';
-import { Description } from './Description';
-import { CampaignImage } from './CampaignImage';
+} from "semantic-ui-react";
+import { YoutubeIframe } from "./YoutubeIframe";
+import { calculateTimeRemaining } from "../utils/calculateTimeRemaining";
+import { Description } from "./Description";
+import { CampaignImage } from "./CampaignImage";
 
 export enum FetchingState {
   FETCHING_STARTED,
@@ -31,10 +31,6 @@ interface CampaignProps {
 }
 
 class _Campaign extends Component<CampaignProps> {
-  constructor(props: CampaignProps) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchCampaign(this.props.match.params.id);
   }
@@ -48,15 +44,15 @@ class _Campaign extends Component<CampaignProps> {
     if (fetchingState === FetchingState.FETCHING_ERROR || !campaign)
       return <h1>No campaign found</h1>;
 
-    const titleStyles = { fontSize: '3rem', marginBottom: '1px' };
-    const subtitleStyles = { fontSize: '20px' };
+    const titleStyles = { fontSize: "3rem", marginBottom: "1px" };
+    const subtitleStyles = { fontSize: "20px" };
 
     return (
       <Grid>
         <Grid.Row>
           <Grid.Column width={16}>
-            <Header as="h1" style={{ display: 'inline' }}>
-              {campaign.title}{' '}
+            <Header as="h1" style={{ display: "inline" }}>
+              {campaign.title}{" "}
             </Header>
             <span>by {campaign.user.name}</span>
           </Grid.Column>
@@ -87,14 +83,14 @@ class _Campaign extends Component<CampaignProps> {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16} textAlign="center">
-            <p style={{ fontSize: '2rem' }}>Help fund this project</p>
+            <p style={{ fontSize: "2rem" }}>Help fund this project</p>
             <Input
               size="big"
               type="number"
-              label={{ basic: true, content: '$' }}
+              label={{ basic: true, content: "$" }}
               labelPosition="right"
               placeholder="Enter amount"
-              style={{ marginBottom: '2rem' }}
+              style={{ marginBottom: "2rem" }}
             />
             <br />
             <Button color="red" icon labelPosition="right" size="big">
@@ -135,7 +131,4 @@ const mapStateToProps = ({
   };
 };
 
-export const Campaign = connect(
-  mapStateToProps,
-  { fetchCampaign }
-)(_Campaign);
+export const Campaign = connect(mapStateToProps, { fetchCampaign })(_Campaign);

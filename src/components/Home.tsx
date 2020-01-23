@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   fetchCampaigns,
   changeCampaignsPage,
   filterCampaigns,
   sortCampaigns
-} from '../actions';
-import { StoreState } from '../reducers';
-import { Campaign } from '../interfaces';
-import { config } from '../config';
+} from "../actions";
+import { StoreState } from "../reducers";
+import { Campaign } from "../interfaces";
+import { config } from "../config";
 import {
   Grid,
   Button,
   Icon,
   Pagination,
   PaginationProps,
-  DropdownProps
-} from 'semantic-ui-react';
-import { CampaignList } from './CampaignList';
-import { FilterDropdown, FilterOptions } from './FilterDropdown';
-import { SortDropdown, SortOptions } from './SortDropdown';
-import { Link } from 'react-router-dom';
+  DropdownProps,
+  Placeholder
+} from "semantic-ui-react";
+import { CampaignList } from "./CampaignList";
+import { FilterDropdown, FilterOptions } from "./FilterDropdown";
+import { SortDropdown, SortOptions } from "./SortDropdown";
+import { Link } from "react-router-dom";
 
 interface HomeProps {
   campaigns: Campaign[];
@@ -30,11 +31,19 @@ interface HomeProps {
   sortCampaigns: typeof sortCampaigns;
   activePage: number;
   sortingOption: SortOptions;
+  userLoggedIn: boolean | null;
 }
 
-class _Home extends Component<HomeProps> {
+interface HomeState {
+  loading: boolean;
+}
+
+class _Home extends Component<HomeProps, HomeState> {
   constructor(props: HomeProps) {
     super(props);
+    this.state = {
+      loading: false
+    };
 
     this.handleFilter = this.handleFilter.bind(this);
     this.handleSort = this.handleSort.bind(this);
@@ -57,36 +66,33 @@ class _Home extends Component<HomeProps> {
     this.props.changeCampaignsPage(1);
   }
 
-  render() {
+  LinkToHome = () => {
+    if (!this.props.userLoggedIn) {
+      return null;
+    }
+
+    return (
+      <Grid.Column floated="right" width="4" textAlign="right">
+        <Link to="/new">
+          <Button color="green" icon labelPosition="left" size="large">
+            <Icon name="plus" />
+            New Campaign
+          </Button>
+        </Link>
+      </Grid.Column>
+    );
+  };
+
+  MainContent = () => {
+    if (this.props.campaigns.length === 0) {
+      return <div>There are no created campaigns</div>;
+    }
+
     const numberOfPages = Math.ceil(
       this.props.campaigns.length / config.MAX_CAMPAIGNS_PER_PAGE
     );
-
     return (
-      <div>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <h1 style={{ paddingBottom: '2rem' }}>Campaigns</h1>
-            </Grid.Column>
-            <Grid.Column floated="right" width="4" textAlign="right">
-              <Link to="/new">
-                <Button color="green" icon labelPosition="left" size="large">
-                  <Icon name="plus" />
-                  New Campaign
-                </Button>
-              </Link>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ marginBottom: '2rem' }}>
-            <Grid.Column width={4}>
-              <SortDropdown onChange={this.handleSort}></SortDropdown>
-            </Grid.Column>
-            <Grid.Column width={5}>
-              <FilterDropdown onChange={this.handleFilter} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+      <>
         <CampaignList
           activePage={this.props.activePage}
           campaigns={this.props.campaigns}
@@ -95,8 +101,42 @@ class _Home extends Component<HomeProps> {
           activePage={this.props.activePage}
           onPageChange={this.handlePaginationChange}
           totalPages={numberOfPages}
-          style={{ float: 'right', margin: '10px 0 30px 0' }}
+          style={{ float: "right", margin: "10px 0 30px 0" }}
         />
+      </>
+    );
+  };
+
+  render() {
+    if (this.state.loading) {
+      return (
+        <Placeholder.Paragraph>
+          <Placeholder.Line />
+          <Placeholder.Line />
+          <Placeholder.Line />
+        </Placeholder.Paragraph>
+      );
+    }
+
+    return (
+      <div>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <h1 style={{ paddingBottom: "2rem" }}>Campaigns</h1>
+            </Grid.Column>
+            <this.LinkToHome />
+          </Grid.Row>
+          <Grid.Row style={{ marginBottom: "2rem" }}>
+            <Grid.Column width={4}>
+              <SortDropdown onChange={this.handleSort}></SortDropdown>
+            </Grid.Column>
+            <Grid.Column width={5}>
+              <FilterDropdown onChange={this.handleFilter} />
+            </Grid.Column>
+          </Grid.Row>
+          <this.MainContent />
+        </Grid>
       </div>
     );
   }
@@ -107,26 +147,37 @@ class _Home extends Component<HomeProps> {
     }
   }
 
-  componentDidMount() {
-    this.props.fetchCampaigns();
+  async componentDidMount() {
+    this.setState({ loading: true });
+    try {
+      await this.props.fetchCampaigns();
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({ loading: false });
   }
 }
 
 const mapStateToProps = ({
-  campaignListState
+  campaignListState,
+  userState
 }: StoreState): {
   campaigns: Campaign[];
   activePage: number;
   sortingOption: SortOptions;
+  userLoggedIn: boolean | null;
 } => {
   return {
     campaigns: campaignListState.displayedCampaigns,
     activePage: campaignListState.activePage,
-    sortingOption: campaignListState.sortingOption
+    sortingOption: campaignListState.sortingOption,
+    userLoggedIn: userState.loggedIn
   };
 };
 
-export const Home = connect(
-  mapStateToProps,
-  { fetchCampaigns, changeCampaignsPage, filterCampaigns, sortCampaigns }
-)(_Home);
+export const Home = connect(mapStateToProps, {
+  fetchCampaigns,
+  changeCampaignsPage,
+  filterCampaigns,
+  sortCampaigns
+})(_Home);

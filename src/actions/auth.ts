@@ -22,7 +22,8 @@ export const login = (
   try {
     const response = await axios.post<UserCurrent>(
       `${config.BACKEND_URL}/auth/login/local`,
-      user
+      user,
+      { withCredentials: true }
     );
 
     userCurrent = response.data;

@@ -1,9 +1,16 @@
-import React from 'react';
-import { Campaign } from '../interfaces';
-import { Grid, Placeholder, Divider, Header, Label } from 'semantic-ui-react';
-import { calculateTimeRemaining } from '../utils/calculateTimeRemaining';
-import { Link } from 'react-router-dom';
-import { getCampaignExcerpt } from '../utils/getCampaignExcerpt';
+import React from "react";
+import { Campaign } from "../interfaces";
+import {
+  Grid,
+  Placeholder,
+  Divider,
+  Header,
+  Label,
+  Segment
+} from "semantic-ui-react";
+import { calculateTimeRemaining } from "../utils/calculateTimeRemaining";
+import { Link } from "react-router-dom";
+import { getCampaignExcerpt } from "../utils/getCampaignExcerpt";
 
 interface CampaignListItemProps {
   campaign?: Campaign;
@@ -70,11 +77,11 @@ export const CampaignListItem = (props: CampaignListItemProps): JSX.Element => {
   const { timeRemainingString, isHot } = calculateTimeRemaining(endDate);
 
   return (
-    <Grid>
-      <Grid.Row style={{ paddingBottom: '2rem' }}>
+    <Grid container>
+      <Grid.Row style={{ paddingBottom: "2rem" }}>
         <Grid.Column width={5}>
           <div
-            style={{ maxHeight: imageDimensions.maxHeight, overflow: 'hidden' }}
+            style={{ maxHeight: imageDimensions.maxHeight, overflow: "hidden" }}
           >
             <Link to={`/campaigns/${id}`}>
               <img
@@ -97,7 +104,10 @@ export const CampaignListItem = (props: CampaignListItemProps): JSX.Element => {
             </Grid.Row>
             <Grid.Row style={{ paddingTop: 0 }}>
               <Grid.Column>
-                {excerpt} <Divider style={{ marginBottom: 0 }} />
+                <Segment basic style={{ wordBreak: "break-all" }}>
+                  {excerpt}
+                </Segment>{" "}
+                <Divider style={{ marginBottom: 0 }} />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row
@@ -107,14 +117,14 @@ export const CampaignListItem = (props: CampaignListItemProps): JSX.Element => {
               style={{ padding: 0 }}
             >
               <Grid.Column>
-                <strong>{percentFunded}% </strong>funded out of{' '}
+                <strong>{percentFunded}% </strong>funded out of{" "}
                 <strong>{goal}$</strong> target
               </Grid.Column>
               <Grid.Column>
                 created by <strong>{user.name}</strong>
               </Grid.Column>
               <Grid.Column>
-                <span style={isHot ? { color: 'red' } : {}}>
+                <span style={isHot ? { color: "red" } : {}}>
                   ending in <strong> {timeRemainingString}</strong>
                 </span>
               </Grid.Column>

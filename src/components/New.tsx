@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { Grid, Header, Button, Input, TextArea, Form } from 'semantic-ui-react';
-import { ImageDropBox } from './ImageDropBox';
-import SimpleReactValidator from 'simple-react-validator';
-import axios from 'axios';
-import { config } from '../config';
+import React, { Component } from "react";
+import { Grid, Header, Button, Input, TextArea, Form } from "semantic-ui-react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { ImageDropBox } from "./ImageDropBox";
+import SimpleReactValidator from "simple-react-validator";
+import { config } from "../config";
 
 interface NewProps {}
 
@@ -17,7 +18,7 @@ interface NewState {
 }
 
 const placeHolderImage =
-  'https://react.semantic-ui.com/images/wireframe/white-image.png';
+  "https://react.semantic-ui.com/images/wireframe/white-image.png";
 
 export class New extends Component<NewProps, NewState> {
   validator: SimpleReactValidator;
@@ -26,17 +27,17 @@ export class New extends Component<NewProps, NewState> {
     super(props);
 
     this.state = {
-      imageUrl: '',
-      title: '',
-      goal: '',
-      description: '',
-      videoUrl: '',
-      days: ''
+      imageUrl: "",
+      title: "",
+      goal: "",
+      description: "",
+      videoUrl: "",
+      days: ""
     };
 
     this.validator = new SimpleReactValidator({
       element: (message: string): JSX.Element => (
-        <div style={{ color: 'red', marginTop: '10px' }}>{message}</div>
+        <div style={{ color: "red", marginTop: "10px" }}>{message}</div>
       )
     });
     this.onImageDrop = this.onImageDrop.bind(this);
@@ -48,8 +49,8 @@ export class New extends Component<NewProps, NewState> {
 
     const reader = new FileReader();
 
-    reader.onabort = () => console.log('file reading was aborted');
-    reader.onerror = () => console.log('file reading has failed');
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading has failed");
     reader.onload = () => {
       const url = reader.result;
       console.log(url as string);
@@ -60,31 +61,40 @@ export class New extends Component<NewProps, NewState> {
   }
 
   deleteImage() {
-    this.setState({ imageUrl: '' });
+    this.setState({ imageUrl: "" });
   }
 
-  onSubmit() {
+  onSubmit = async () => {
     if (this.validator.allValid()) {
-      axios.post(`${config.BACKEND_URL}/campaigns`, {
-        title: this.state.title,
-        user: { id: '1', name: 'SVC Letterpress' },
-        description: this.state.description,
-        days: this.state.days,
-        raised: 0,
-        goal: this.state.goal,
-        img: this.state.imageUrl,
-        video: this.state.videoUrl,
-        approved: null,
-        donators: []
+      await axios.post(
+        `${config.BACKEND_URL}/campaigns`,
+        {
+          title: this.state.title,
+          user: { id: "1", name: "SVC Letterpress" },
+          description: this.state.description,
+          days: this.state.days,
+          raised: 0,
+          goal: this.state.goal,
+          img: this.state.imageUrl,
+          video: this.state.videoUrl,
+          approved: null,
+          donators: []
+        },
+        { withCredentials: true }
+      );
+
+      toast.success(`Campaign ${this.state.title} is successfully created`, {
+        containerId: "global"
       });
+      window.location.href = "/";
     } else {
       this.validator.showMessages();
       this.forceUpdate();
     }
-  }
+  };
 
   render() {
-    const marginBottom = { marginBottom: '3rem' };
+    const marginBottom = { marginBottom: "3rem" };
 
     return (
       <Grid>
@@ -112,7 +122,7 @@ export class New extends Component<NewProps, NewState> {
                 icon="trash alternate outline"
               />
             )}
-            {this.validator.message('image', this.state.imageUrl, 'required')}
+            {this.validator.message("image", this.state.imageUrl, "required")}
           </Grid.Column>
           <Grid.Column width="11">
             <Form>
@@ -132,9 +142,9 @@ export class New extends Component<NewProps, NewState> {
                       }}
                     ></Input>
                     {this.validator.message(
-                      'title',
+                      "title",
                       this.state.title,
-                      'required|min:10'
+                      "required|min:10"
                     )}
                   </Grid.Column>
                   <Grid.Column width="8">
@@ -151,9 +161,9 @@ export class New extends Component<NewProps, NewState> {
                       }}
                     ></Input>
                     {this.validator.message(
-                      'goal',
+                      "goal",
                       this.state.goal,
-                      'required|numeric|min:100,num'
+                      "required|numeric|min:100,num"
                     )}
                   </Grid.Column>
                 </Grid.Row>
@@ -172,9 +182,9 @@ export class New extends Component<NewProps, NewState> {
                       }}
                     ></Input>
                     {this.validator.message(
-                      'videoLink',
+                      "videoLink",
                       this.state.videoUrl,
-                      'required|url'
+                      "required|url"
                     )}
                   </Grid.Column>
                   <Grid.Column width="8">
@@ -191,9 +201,9 @@ export class New extends Component<NewProps, NewState> {
                       }}
                     ></Input>
                     {this.validator.message(
-                      'days',
+                      "days",
                       this.state.days,
-                      'required|numeric|min:1,num'
+                      "required|numeric|min:1,num"
                     )}
                   </Grid.Column>
                 </Grid.Row>
@@ -214,9 +224,9 @@ export class New extends Component<NewProps, NewState> {
                         }}
                       />
                       {this.validator.message(
-                        'description',
+                        "description",
                         this.state.description,
-                        'required|min:150'
+                        "required|min:150"
                       )}
                     </div>
                   </Grid.Column>
@@ -227,7 +237,7 @@ export class New extends Component<NewProps, NewState> {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign="right">
-            <Button color="green" size="big" onClick={() => this.onSubmit()}>
+            <Button color="green" size="big" onClick={this.onSubmit}>
               Submit
             </Button>
           </Grid.Column>
@@ -238,5 +248,5 @@ export class New extends Component<NewProps, NewState> {
 }
 
 const Required = () => {
-  return <span style={{ color: 'red' }}>*</span>;
+  return <span style={{ color: "red" }}>*</span>;
 };
