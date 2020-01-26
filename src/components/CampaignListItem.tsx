@@ -97,7 +97,9 @@ export const CampaignListItem = (props: CampaignListItemProps): JSX.Element => {
             <Grid.Row>
               <Grid.Column>
                 <Link to={`/campaigns/${id}`}>
-                  <Header as="h2">{title}</Header>
+                  <Header as="h2" style={{ wordBreak: "break-all" }}>
+                    {title}
+                  </Header>
                 </Link>
                 {campaignsState}
               </Grid.Column>

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   fetchCampaigns,
   changeCampaignsPage,
   filterCampaigns,
   sortCampaigns
-} from '../actions';
-import { StoreState } from '../reducers';
-import { Campaign, UserCurrent } from '../interfaces';
-import { config } from '../config';
+} from "../actions";
+import { StoreState } from "../reducers";
+import { Campaign, UserCurrent } from "../interfaces";
+import { config } from "../config";
 import {
   Grid,
   Button,
@@ -16,13 +16,15 @@ import {
   Pagination,
   PaginationProps,
   DropdownProps,
-  Placeholder
-} from 'semantic-ui-react';
-import { CampaignList } from './CampaignList';
-import { FilterDropdown, FilterOptions } from './FilterDropdown';
-import { SortDropdown, SortOptions } from './SortDropdown';
-import { Link } from 'react-router-dom';
-import { UserState } from '../reducers/userReducer';
+  Image,
+  Segment,
+  Loader,
+  Dimmer
+} from "semantic-ui-react";
+import { CampaignList } from "./CampaignList";
+import { FilterDropdown, FilterOptions } from "./FilterDropdown";
+import { SortDropdown, SortOptions } from "./SortDropdown";
+import { Link } from "react-router-dom";
 
 interface HomeProps {
   campaigns: Campaign[];
@@ -74,7 +76,7 @@ class _Home extends Component<HomeProps, HomeState> {
     }
 
     return (
-      <Grid.Column floated="right" width="4" textAlign="right">
+      <Grid.Column floated="right" textAlign="right">
         <Link to="/new">
           <Button color="green" icon labelPosition="left" size="large">
             <Icon name="plus" />
@@ -95,7 +97,7 @@ class _Home extends Component<HomeProps, HomeState> {
     );
 
     let campaignsVisible;
-    if (!(this.props.user && this.props.user.role === 'admin')) {
+    if (!(this.props.user && this.props.user.role === "admin")) {
       campaignsVisible = this.props.campaigns.filter(
         camp => camp.approved === true
       );
@@ -105,51 +107,60 @@ class _Home extends Component<HomeProps, HomeState> {
 
     return (
       <>
-        <CampaignList
-          activePage={this.props.activePage}
-          campaigns={campaignsVisible}
-        ></CampaignList>
-        <Pagination
-          activePage={this.props.activePage}
-          onPageChange={this.handlePaginationChange}
-          totalPages={numberOfPages}
-          style={{ float: 'right', margin: '10px 0 30px 0' }}
-        />
+        <Grid.Column width="16">
+          <CampaignList
+            activePage={this.props.activePage}
+            campaigns={campaignsVisible}
+          ></CampaignList>
+        </Grid.Column>
+        <Grid.Column width="16">
+          <Pagination
+            activePage={this.props.activePage}
+            onPageChange={this.handlePaginationChange}
+            totalPages={numberOfPages}
+            style={{ float: "right", margin: "10px 0 30px 0" }}
+          />
+        </Grid.Column>
       </>
     );
   };
 
   render() {
     if (this.state.loading) {
+      // return <div>Loading...</div>;
       return (
-        <Placeholder.Paragraph>
-          <Placeholder.Line />
-          <Placeholder.Line />
-          <Placeholder.Line />
-        </Placeholder.Paragraph>
+        <Segment>
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
+
+          <Image src="https://react.semantic-ui.com/images/wireframe/short-paragraph.png" />
+        </Segment>
       );
     }
 
     return (
       <div>
         <Grid>
-          <Grid.Row>
+          <Grid.Row columns="2">
             <Grid.Column>
-              <h1 style={{ paddingBottom: '2rem' }}>Campaigns</h1>
+              <h1 style={{ paddingBottom: "2rem" }}>Campaigns</h1>
             </Grid.Column>
             <this.LinkToHome />
           </Grid.Row>
-          <Grid.Row style={{ marginBottom: '2rem' }}>
-            <Grid.Column width={4}>
+          <Grid.Row style={{ marginBottom: "2rem" }}>
+            <Grid.Column mobile="8" tablet="8" computer="5">
               <SortDropdown onChange={this.handleSort}></SortDropdown>
             </Grid.Column>
-            <Grid.Column width={5}>
-              {this.props.user && this.props.user.role === 'admin' ? (
+            <Grid.Column mobile="8" tablet="8" computer="5">
+              {this.props.user && this.props.user.role === "admin" ? (
                 <FilterDropdown onChange={this.handleFilter} />
               ) : null}
             </Grid.Column>
           </Grid.Row>
-          <this.MainContent />
+          <Grid.Row>
+            <this.MainContent />
+          </Grid.Row>
         </Grid>
       </div>
     );

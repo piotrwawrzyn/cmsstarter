@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchCampaign } from '../actions/campaignPage';
-import { StoreState } from '../reducers';
-import { Campaign as ICampaign, UserCurrent } from '../interfaces';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchCampaign } from "../actions/campaignPage";
+import { StoreState } from "../reducers";
+import { Campaign as ICampaign, UserCurrent } from "../interfaces";
 import {
   Grid,
   Header,
@@ -14,15 +14,15 @@ import {
   Checkbox,
   Table,
   Label
-} from 'semantic-ui-react';
-import { YoutubeIframe } from './YoutubeIframe';
-import { calculateTimeRemaining } from '../utils/calculateTimeRemaining';
-import { Description } from './Description';
-import { CampaignImage } from './CampaignImage';
-import { config } from '../config';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { wait } from '../utils/wait';
+} from "semantic-ui-react";
+import { YoutubeIframe } from "./YoutubeIframe";
+import { calculateTimeRemaining } from "../utils/calculateTimeRemaining";
+import { Description } from "./Description";
+import { CampaignImage } from "./CampaignImage";
+import { config } from "../config";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { wait } from "../utils/wait";
 
 const { BACKEND_URL } = config;
 
@@ -49,7 +49,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
   constructor(props: CampaignProps) {
     super(props);
 
-    this.state = { donateAmount: '', anonymous: false };
+    this.state = { donateAmount: "", anonymous: false };
     this.handleDonate = this.handleDonate.bind(this);
   }
 
@@ -69,17 +69,17 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
       toast.success(
         `Campaign ${this.props.campaign!.title} was successfully accepted!`,
         {
-          containerId: 'global'
+          containerId: "global"
         }
       );
     else
       toast.error(`Campaign ${this.props.campaign!.title} has been denied.`, {
-        containerId: 'global'
+        containerId: "global"
       });
 
     await wait(2500);
 
-    window.location.href = '/';
+    window.location.href = "/";
   }
 
   renderAcceptRejectButtons() {
@@ -89,7 +89,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
     const acceptButtonEnabled = this.props.campaign.approved !== true;
 
     return (
-      <Grid.Row style={{ margin: '1em 0 1em 0' }}>
+      <Grid.Row style={{ margin: "1em 0 1em 0" }}>
         <Grid.Column textAlign="center">
           <Button
             disabled={!acceptButtonEnabled}
@@ -98,6 +98,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
             color="green"
             labelPosition="left"
             onClick={() => this.handleAccept(true)}
+            style={{ marginBottom: "15px" }}
           >
             <Icon name="check" />
             Accept
@@ -141,7 +142,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
       toast.success(
         `Your donate has been accepted! Thank you for your generosity!`,
         {
-          containerId: 'global'
+          containerId: "global"
         }
       );
 
@@ -150,7 +151,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
       window.location.href = `/campaigns/${this.props.campaign!.id}`;
     } catch (err) {
       toast.error(err.message, {
-        containerId: 'global'
+        containerId: "global"
       });
     }
   }
@@ -159,14 +160,14 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
     if (!this.props.campaign) return null;
     const donations = this.props.campaign!.donators;
 
-    const donationsMarkup = donations.map(donation => {
+    const donationsMarkup = donations.map((donation, i) => {
       let donationAmount = (
         (donation.amount / this.props.campaign!.goal) *
         100
       ).toFixed(2);
-      if (donationAmount === '0.00') donationAmount = '< 0.00';
+      if (donationAmount === "0.00") donationAmount = "< 0.00";
       return (
-        <Table.Row>
+        <Table.Row key={i}>
           <Table.Cell>
             {donation.user ? donation.user.name : <Label>anonymous</Label>}
           </Table.Cell>
@@ -182,7 +183,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
         <Grid.Column>
           <h1>Donations</h1>
           {donations.length ? (
-            <Table celled style={{ fontSize: '1.2em' }}>
+            <Table celled style={{ fontSize: "1.2em" }}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>User</Table.HeaderCell>
@@ -195,7 +196,7 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
               <Table.Body>{donationsMarkup}</Table.Body>
             </Table>
           ) : (
-            <p style={{ fontSize: '1.5em' }}>There are no donations yet.</p>
+            <p style={{ fontSize: "1.5em" }}>There are no donations yet.</p>
           )}
         </Grid.Column>
       </Grid.Row>
@@ -214,20 +215,20 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
 
     if (
       !campaign.approved &&
-      (!this.props.user || this.props.user.role !== 'admin')
+      (!this.props.user || this.props.user.role !== "admin")
     ) {
       return <h1>Access denied</h1>;
     }
 
-    const titleStyles = { fontSize: '3rem', marginBottom: '1px' };
-    const subtitleStyles = { fontSize: '20px' };
+    const titleStyles = { fontSize: "3rem", marginBottom: "1px" };
+    const subtitleStyles = { fontSize: "20px" };
 
     return (
       <Grid>
         <Grid.Row>
           <Grid.Column width={16}>
-            <Header as="h1" style={{ display: 'inline' }}>
-              {campaign.title}{' '}
+            <Header as="h1" style={{ display: "inline" }}>
+              {campaign.title}{" "}
             </Header>
             <span>by {campaign.user.name}</span>
           </Grid.Column>
@@ -258,15 +259,15 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16} textAlign="center">
-            <p style={{ fontSize: '2rem' }}>Help fund this project</p>
+            <p style={{ fontSize: "2rem" }}>Help fund this project</p>
             <Input
               size="big"
               type="number"
-              label={{ basic: true, content: '$' }}
+              label={{ basic: true, content: "$" }}
               labelPosition="right"
               value={this.state.donateAmount}
               placeholder="Enter amount"
-              style={{ marginBottom: '2rem' }}
+              style={{ marginBottom: "2rem" }}
               onChange={e => this.setState({ donateAmount: e.target.value })}
             />
             {this.props.user ? (
@@ -311,11 +312,11 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
         </Grid.Row>
         {this.props.user &&
         this.props.campaign &&
-        (this.props.user.role === 'admin' ||
+        (this.props.user.role === "admin" ||
           this.props.user.name === this.props.campaign.user.name)
           ? this.renderDonationTable()
           : null}
-        {this.props.user && this.props.user.role === 'admin'
+        {this.props.user && this.props.user.role === "admin"
           ? this.renderAcceptRejectButtons()
           : null}
       </Grid>
