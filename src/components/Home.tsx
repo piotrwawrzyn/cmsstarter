@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   fetchCampaigns,
   changeCampaignsPage,
   filterCampaigns,
   sortCampaigns
-} from "../actions";
-import { StoreState } from "../reducers";
-import { Campaign } from "../interfaces";
-import { config } from "../config";
+} from '../actions';
+import { StoreState } from '../reducers';
+import { Campaign, UserCurrent } from '../interfaces';
+import { config } from '../config';
 import {
   Grid,
   Button,
@@ -17,11 +17,12 @@ import {
   PaginationProps,
   DropdownProps,
   Placeholder
-} from "semantic-ui-react";
-import { CampaignList } from "./CampaignList";
-import { FilterDropdown, FilterOptions } from "./FilterDropdown";
-import { SortDropdown, SortOptions } from "./SortDropdown";
-import { Link } from "react-router-dom";
+} from 'semantic-ui-react';
+import { CampaignList } from './CampaignList';
+import { FilterDropdown, FilterOptions } from './FilterDropdown';
+import { SortDropdown, SortOptions } from './SortDropdown';
+import { Link } from 'react-router-dom';
+import { UserState } from '../reducers/userReducer';
 
 interface HomeProps {
   campaigns: Campaign[];
@@ -32,6 +33,7 @@ interface HomeProps {
   activePage: number;
   sortingOption: SortOptions;
   userLoggedIn: boolean | null;
+  user: UserCurrent | null;
 }
 
 interface HomeState {
@@ -91,17 +93,27 @@ class _Home extends Component<HomeProps, HomeState> {
     const numberOfPages = Math.ceil(
       this.props.campaigns.length / config.MAX_CAMPAIGNS_PER_PAGE
     );
+
+    let campaignsVisible;
+    if (!(this.props.user && this.props.user.role === 'admin')) {
+      campaignsVisible = this.props.campaigns.filter(
+        camp => camp.approved === true
+      );
+    } else {
+      campaignsVisible = this.props.campaigns;
+    }
+
     return (
       <>
         <CampaignList
           activePage={this.props.activePage}
-          campaigns={this.props.campaigns}
+          campaigns={campaignsVisible}
         ></CampaignList>
         <Pagination
           activePage={this.props.activePage}
           onPageChange={this.handlePaginationChange}
           totalPages={numberOfPages}
-          style={{ float: "right", margin: "10px 0 30px 0" }}
+          style={{ float: 'right', margin: '10px 0 30px 0' }}
         />
       </>
     );
@@ -123,16 +135,18 @@ class _Home extends Component<HomeProps, HomeState> {
         <Grid>
           <Grid.Row>
             <Grid.Column>
-              <h1 style={{ paddingBottom: "2rem" }}>Campaigns</h1>
+              <h1 style={{ paddingBottom: '2rem' }}>Campaigns</h1>
             </Grid.Column>
             <this.LinkToHome />
           </Grid.Row>
-          <Grid.Row style={{ marginBottom: "2rem" }}>
+          <Grid.Row style={{ marginBottom: '2rem' }}>
             <Grid.Column width={4}>
               <SortDropdown onChange={this.handleSort}></SortDropdown>
             </Grid.Column>
             <Grid.Column width={5}>
-              <FilterDropdown onChange={this.handleFilter} />
+              {this.props.user && this.props.user.role === 'admin' ? (
+                <FilterDropdown onChange={this.handleFilter} />
+              ) : null}
             </Grid.Column>
           </Grid.Row>
           <this.MainContent />
@@ -166,12 +180,16 @@ const mapStateToProps = ({
   activePage: number;
   sortingOption: SortOptions;
   userLoggedIn: boolean | null;
+  user: UserCurrent | null;
 } => {
+  const { user } = userState;
+
   return {
     campaigns: campaignListState.displayedCampaigns,
     activePage: campaignListState.activePage,
     sortingOption: campaignListState.sortingOption,
-    userLoggedIn: userState.loggedIn
+    userLoggedIn: userState.loggedIn,
+    user
   };
 };
 

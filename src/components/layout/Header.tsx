@@ -1,5 +1,5 @@
-import React, { Component, Suspense, lazy } from "react";
-import { connect } from "react-redux";
+import React, { Component, Suspense, lazy } from 'react';
+import { connect } from 'react-redux';
 import {
   Menu,
   Button,
@@ -9,13 +9,13 @@ import {
   Dimmer,
   Loader,
   ButtonProps
-} from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import ErrorBoundary from "../ErrorBoundary";
-import { StoreState } from "../../reducers";
-import { UserState } from "../../reducers/userReducer";
-import { logout } from "../../actions/auth";
-const ModalAuth = lazy(() => import("../auth/ModalAuth"));
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import ErrorBoundary from '../ErrorBoundary';
+import { StoreState } from '../../reducers';
+import { UserState } from '../../reducers/userReducer';
+import { logout } from '../../actions/auth';
+const ModalAuth = lazy(() => import('../auth/ModalAuth'));
 
 type btnOnClickSemantic = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -69,7 +69,12 @@ class Header extends Component<HeaderProps, { modal: JSX.Element | null }> {
           <Button color="black" onClick={this.props.logout}>
             Logout
           </Button>
-          {user.name}
+          <span style={{ marginLeft: '10px' }}>
+            Hello,{' '}
+            <strong>
+              <span>{user.name}</span>
+            </strong>
+          </span>
         </Menu.Item>
       );
     }
@@ -95,17 +100,17 @@ class Header extends Component<HeaderProps, { modal: JSX.Element | null }> {
         {this.state.modal}
         <Grid>
           <Grid.Row>
-            <Grid.Column width="12" verticalAlign="middle">
+            <Grid.Column width="11" verticalAlign="middle">
               <Link to="/">
                 <img
-                  style={{ width: "350px" }}
+                  style={{ width: '350px' }}
                   src="/cmsstarter_logo.png"
                   alt="cmsstarter logo"
                 />
               </Link>
             </Grid.Column>
             <Grid.Column
-              width="4"
+              width="5"
               floated="right"
               verticalAlign="middle"
               textAlign="right"
@@ -114,7 +119,7 @@ class Header extends Component<HeaderProps, { modal: JSX.Element | null }> {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Divider style={{ marginBottom: "2em" }} />
+        <Divider style={{ marginBottom: '2em' }} />
       </div>
     );
   }
