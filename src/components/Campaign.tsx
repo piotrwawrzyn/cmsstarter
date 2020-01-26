@@ -88,6 +88,15 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
     const denyButtonEnabled = this.props.campaign.approved !== false;
     const acceptButtonEnabled = this.props.campaign.approved !== true;
 
+    let textToDisplay;
+    if (this.props.campaign.approved) {
+      textToDisplay = 'approved';
+    } else if (this.props.campaign.approved === false) {
+      textToDisplay = 'rejected';
+    } else {
+      textToDisplay = 'pending approval';
+    }
+
     return (
       <Grid.Row style={{ margin: '1em 0 1em 0' }}>
         <Grid.Column textAlign="center">
@@ -113,6 +122,10 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
             <Icon name="times" />
             Reject
           </Button>
+          <br />
+          <p style={{ margin: '1em 0 1em 0', fontSize: '1.5em' }}>
+            This campaign is currently <strong>{textToDisplay}</strong>
+          </p>
         </Grid.Column>
       </Grid.Row>
     );
@@ -261,6 +274,9 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
             <p style={{ fontSize: '2rem' }}>Help fund this project</p>
             <Input
               size="big"
+              disabled={
+                this.props.campaign!.goal === this.props.campaign!.raised
+              }
               type="number"
               label={{ basic: true, content: '$' }}
               labelPosition="right"
@@ -273,6 +289,9 @@ class _Campaign extends Component<CampaignProps, CampaignState> {
               <div>
                 <Checkbox
                   checked={this.state.anonymous}
+                  disabled={
+                    this.props.campaign!.goal === this.props.campaign!.raised
+                  }
                   onChange={e =>
                     this.setState({ anonymous: !this.state.anonymous })
                   }
